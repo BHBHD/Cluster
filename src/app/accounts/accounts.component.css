@@ -1,0 +1,38 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+.container1{
+    display: block;
+    background-color: #ffcb9a;
+    height: 12vh;
+    width: 100%;
+    margin-bottom: 1px;
+}
+.container2{
+    display: flex;
+}
+.sidebar{
+margin-right: 1px ;
+background-color: #ffcb9a;
+width: 25%;
+}
+.mainPanel{
+    display: flex;
+    background-color:#ffcb9a;
+    justify-content:center;
+    width: 100%;
+}
+.form{
+    width: 95%;
+}
+tr{
+    border-bottom: 2px solid black;
+    border-color:  rgb(0, 0, 0)!important;
+}
+.label-danger{
+    color: red;
+}
+.label-danger::after{
+    color: green;
+}

@@ -1,0 +1,24 @@
+.HomeMain{
+    display: flex;
+    /* height: 100vh; */
+
+}
+.homeBlog{
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    /* background-color: red; */
+    display: flex;
+}
+.homeAd{
+    padding: 10px;
+    margin: 10px;
+    background-color: yellow;
+}
+.adv{
+transform:  skewY(-60deg);
+margin-top: 200px;
+}
+.card{
+    margin: 5px;
+}
