@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.form {
+  width: 95%;
+}
+/* list-style */
+.main-box.no-header {
+  padding-top: 20px;
+}
+img {
+  border-radius: 50%;
+}
+
+.table a.table-link.danger {
+  color: #e74c3c;
+}
+
+.label {
+  border-radius: 3px;
+  font-size: 0.875em;
+  font-weight: 600;
+}
+
+.user-list tbody td .user-subhead {
+  font-size: 0.675em;
+  font-style: italic;
+}
+
+.user-list tbody td .user-link {
+  display: block;
+  font-size: 1.2em;
+  padding-top: 3px;
+  margin-left: 60px;
+}
+
+a {
+  color: #3498db;
+  outline: none !important;
+}
+
+.user-list tbody td > img {
+  position: relative;
+  max-width: 50px;
+  float: left;
+  margin-right: 15px;
+}
+
+tr {
+  border-color: rgb(0, 0, 0) !important;
+}
+
+.table thead tr th {
+  text-transform: uppercase;
+}
+
+.table thead tr th {
+  border-bottom: 4px solid black;
+}
+
+.table tbody tr td:first-child {
+  font-weight: 300;
+}
+
+.table tbody tr td {
+  vertical-align: middle;
+  border-top: 2px solid black;
+  padding: 12px 8px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* list-style */

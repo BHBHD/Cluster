@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cluster-version-0": {
+      "hosting": {
+        "cluster": [
+          "cluster-version-0"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cluster-version-0"
+  }
+}

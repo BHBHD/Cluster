@@ -1,24 +1,48 @@
-.HomeMain{
-    display: flex;
-    /* height: 100vh; */
+.homeAd {
+  padding: 10px;
+  margin: 10px;
+  background-color: yellow;
+}
 
+.adv {
+  transform: skewY(-60deg);
+  margin-top: 200px;
 }
-.homeBlog{
-    width: 90%;
-    padding: 10px;
-    margin: 10px;
-    /* background-color: red; */
-    display: flex;
+
+.card {
+  margin: 5px;
 }
-.homeAd{
-    padding: 10px;
-    margin: 10px;
-    background-color: yellow;
+
+.jumbotron {
+  background: none;
+  text-align: center;
 }
-.adv{
-transform:  skewY(-60deg);
-margin-top: 200px;
+
+.btn {
+  margin-top: 10px;
 }
-.card{
-    margin: 5px;
+
+.robot {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .robot {
+    width: 50%;
+  }
+}
+
+p:not(.lead) {
+  cursor: pointer;
+}
+
+.home-screen-container {
+  height: 80vh;
+  margin-bottom: 20vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

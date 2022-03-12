@@ -6,7 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "gen-component": "ng generate component authentication/verify-email --module app",
+    "gen-service": "ng generate service services/blog",
+    "gen-guard": "ng generate guard guards/user",
+    "gen-module": "ng generate module firebase-module",
+    "gen-directive": "ng generate directive directive/style-paginator",
+    "gen-pipe": "ng generate pipe pipes/time-since --skip-import"
   },
   "private": true,
   "dependencies": {
@@ -14,6 +20,7 @@
     "@angular/common": "~13.0.0",
     "@angular/compiler": "~13.0.0",
     "@angular/core": "~13.0.0",
+    "@angular/fire": "^7.2.0",
     "@angular/forms": "~13.0.0",
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
@@ -22,6 +29,9 @@
     "@ckeditor/ckeditor5-build-classic": "^31.1.0",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "bootstrap": "^5.1.3",
+    "firebase": "^9.6.4",
+    "jquery": "^3.6.0",
+    "rxfire": "^6.0.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

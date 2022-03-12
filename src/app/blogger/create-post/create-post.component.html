@@ -1,0 +1,42 @@
+<div class="container">
+  <h1 class="text-white m-3 ">Create a Post</h1>
+  <!-- post form -->
+  <div class="form m-3">
+    <form *ngIf="blog" [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+      <input class="form-control mb-2 py-4" placeholder="Post heading" type="text" formControlName="title"/>
+      <!--      <input class="form-control mb-2 py-4" placeholder="Post subheading" type="text" value="{{blog.sub}}"/>-->
+
+      <input class="form-control mb-2 py-4" disabled placeholder="Post background image (enter a URL)" type="text"/>
+      <!--      Use an image URL (ex. https://i.imgur.com/Eq0Z7vm.png)-->
+
+      <textarea
+        class="form-control mb-2 py-3"
+        cols="50" formControlName="content"
+        placeholder="Post body text (markdown supported)"
+        rows="10" value="{{blog.content}}"></textarea>
+
+      <div class="form-group d-flex align-items-center justify-content-between">
+        <button class="btn btn-primary" [disabled]="!updateForm.valid">Update Post</button>
+      </div>
+    </form>
+
+
+    <form [formGroup]="createForm" (ngSubmit)="onCreate()" *ngIf="!blog">
+        <input class="form-control mb-2 py-4" placeholder="Post heading" type="text" formControlName="title" required/>
+        <!--      <input class="form-control mb-2 py-4" placeholder="Post subheading" type="text"/>-->
+
+        <input class="form-control mb-2 py-4" disabled placeholder="Post background image (enter a URL)" type="text"/>
+        <!--      Use an image URL (ex. https://i.imgur.com/Eq0Z7vm.png)-->
+
+        <textarea
+          class="form-control mb-2 py-3"
+          cols="50" formControlName="content" required
+          placeholder="Post body text (markdown supported)" rows="10"></textarea>
+
+        <div class="form-group d-flex align-items-center justify-content-between">
+          <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Create Post</button>
+        </div>
+    </form>
+  </div>
+</div>
+

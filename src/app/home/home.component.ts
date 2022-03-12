@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {BlogService} from "../services/blog.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public blogs: any;
 
-  ngOnInit(): void {
+  constructor(
+    private blogService: BlogService,
+  ) { }
+
+  async ngOnInit() {
+    await this.blogService.get_blogs().then(e => {
+      this.blogs = e.blogs;
+    });
   }
 
+  // const blog = {
+  //   title: 'Lorem ipsum dolor sit.',
+  //   author: this.afAuth.user.displayName,
+  //   content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, molestiaeasperiores! Earum commodi, ' +
+  //     'officiis aut repellat obcaecati asperiores utaccusantium corporis voluptatem provident velit, temporibus ' +
+  //     'harum, delenitidoloremque aspernatur? Facilis!',
+  //   uid: this.uid
+  // }
+  // this.blogService.create_blog(blog).then(r => {
+  //   console.log("Blog Created: ", r)
+  // })
 }

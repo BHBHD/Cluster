@@ -1,0 +1,23 @@
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+
+  padding-top: 20px;
+}
+
+.readingContent {
+  margin: 20px;
+  padding: 10px;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.readingContent p {
+  font-size: 18px;
+  color: lightgrey;
+
+  padding-left: 2rem;;
+}

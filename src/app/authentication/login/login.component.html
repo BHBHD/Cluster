@@ -1,0 +1,67 @@
+<div class="login-form">
+  <div class="login-left">
+    <!--    <img class="logo" src="assets\img\Untitled design.gif" alt="" />-->
+    <img alt="" class="logo" src="assets\img\Untitled design.gif">
+  </div>
+  <div class="login-right">
+    <section class="vh-100">
+      <div class="container py-4">
+        <div class="h-100">
+          <div class="col-md-6 col-lg-12">
+            <!-- Email input -->
+            <h1 class="mb-3">Log in</h1>
+            <div class="form-outline mb-4">
+              <label class="form-label">Email address</label>
+              <input #userEmail class="button" required type="email"/>
+              <div class="divider d-flex align-items-center"></div>
+              <!-- form-control form-control-sm -->
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <label class="form-label">Password</label>
+              <input #userPassword class="button" required type="password"/>
+              <div class="divider d-flex align-items-center"></div>
+            </div>
+
+            <div class="d-flex justify-content-around align-items-center mb-4">
+              <!-- Checkbox -->
+              <!--                <div class="form-check">-->
+              <!--                  <input-->
+              <!--                    checked-->
+              <!--                    class="form-check-input"-->
+              <!--                    id="form1Example3"-->
+              <!--                    type="checkbox"-->
+              <!--                    value=""-->
+              <!--                  />-->
+              <!--                  <label class="form-check-label" for="form1Example3">-->
+              <!--                    Remember me-->
+              <!--                  </label>-->
+              <!--                </div>-->
+              <span routerLink="/forgot-password">Forgot Password?</span>
+            </div>
+
+            <!-- Calling GoogleAuth Api from AuthService -->
+            <div class="formGroup">
+              <!-- Submit button -->
+              <button
+                (click)="authService.SignIn(userEmail.value, userPassword.value)"
+                class="btn btn-light btn-outline-dark btn-lg col-lg-12"
+                type="button">
+                Sign in
+              </button>
+            </div>
+
+<!--            <div class="divider d-flex align-items-center my-4">-->
+<!--              <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>-->
+<!--            </div>-->
+
+            <div class="d-flex align-items-center justify-content-center my-4">
+              <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

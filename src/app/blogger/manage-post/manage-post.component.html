@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="text-white m-3 ">Manage Posts</h1>
+  <!-- post-list -->
+  <div *ngFor="let blog of blogs" class="list-group m-5">
+    <a class="list-group-item list-group-item-action flex-column align-items-start " *ngIf="blog">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ blog.title }}</h5>
+        <small>{{ blog.created_at | timeSince }} ago</small>
+      </div>
+      <p class="mb-1">{{ blog.content | truncate }}</p>
+      <hr>
+      <small><strong>Author:</strong> {{ blog.author }}</small><br>
+      <small><strong>Blog Id:</strong> {{ blog.UID }}/{{ blog.id }}</small>
+      <div>
+        <button class="btn btn-primary m-2" routerLink="/readblog/{{blog.UID}}/{{blog.id}}" >Show</button>
+        <button class="btn btn-danger m-2" (click)="onDelete(blog)">Delete</button>
+        <button class="btn btn-primary m-2" routerLink="/create-post/{{blog.UID}}/{{blog.id}}">Edit</button>
+      </div>
+    </a>
+  </div>
+  <!-- post-list -->
+</div>

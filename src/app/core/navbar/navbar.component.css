@@ -1,0 +1,49 @@
+.title {
+  padding: 4rem;
+  margin: 0;
+
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: rgb(200, 196, 196);
+  text-align: center;
+}
+
+.navbar {
+  max-width: 80%;
+  padding: 0 1rem;
+
+  background-color: transparent;
+  border-end-start-radius: 10px;
+  border-end-end-radius: 10px;
+}
+.navbar-brand img {
+  max-width: 64px;
+  border-radius: 50%;
+}
+
+a {
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: auto;
+}
+img {
+  max-width: 38px;
+  margin-right: .5rem;
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  background: darkgray;
+}
+.dropdown-menu a {
+  color: white;
+}
+.dropdown-menu a:hover {
+  background-color: dimgray;
+}

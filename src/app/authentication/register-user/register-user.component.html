@@ -1,0 +1,61 @@
+<div class="login-form">
+  <div class="login-left">
+    <!--    <img class="logo" src="assets\img\Untitled design.gif" alt="" />-->
+    <img alt="" class="logo" src="assets\img\Untitled design.gif">
+  </div>
+  <div class="login-right">
+    <section class="vh-100">
+      <div class="container py-4">
+        <div class="h-100">
+          <div class="col-md-6 col-lg-12">
+            <h1>Sign Up</h1>
+            <div class="form-outline mb-4">
+              <label class="form-label">Full Name</label>
+              <input
+                #userName
+                class="button"
+                required
+                type="text"
+              />
+              <div class="divider d-flex align-items-center"></div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label">Email address</label>
+              <input
+                #userEmail
+                class="button"
+                required
+                type="email"
+              />
+              <div class="divider d-flex align-items-center"></div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label">Password</label>
+              <input
+                #userPwd
+                class="button"
+                required
+                type="password"
+              />
+              <div class="divider d-flex align-items-center"></div>
+            </div>
+
+            <div class="formGroup">
+              <button
+                (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)"
+                class="btn btn-light btn-outline-dark btn-lg col-lg-12"
+                type="button">
+                Sign Up
+              </button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center my-4">
+            <span>Already have an account?<span class="redirect" routerLink="/login"> Log In</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
