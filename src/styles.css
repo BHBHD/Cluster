@@ -15,3 +15,9 @@ body {
 footer p {
   margin: 0 !important;
 }
+.pointer {
+  color:blue;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+}

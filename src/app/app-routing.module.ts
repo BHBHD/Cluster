@@ -13,6 +13,7 @@ import {ForgotPasswordComponent} from "./authentication/forgot-password/forgot-p
 import {AuthGuard} from "./guards/auth.guard";
 import {VerifyEmailComponent} from "./authentication/verify-email/verify-email.component";
 import {UserGuard} from "./guards/user.guard";
+import {ManageUserGuard} from "./guards/manage-user.guard";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -21,7 +22,7 @@ const routes: Routes = [
   {path: 'create-post/:uid', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'create-post/:uid/:id', component: CreatePostComponent, canActivate: [AuthGuard]},
   {path: 'managepost', component: ManagePostComponent, canActivate: [AuthGuard]},
-  {path: 'manageuser', component: ManageUserComponent, canActivate: [AuthGuard]},
+  {path: 'manageuser', component: ManageUserComponent, canActivate: [AuthGuard, ManageUserGuard]},
   {path: 'accounts', component: AccountsComponent, canActivate: [AuthGuard]},
 
   {path: 'login', component: LoginComponent, canActivate: [UserGuard]},

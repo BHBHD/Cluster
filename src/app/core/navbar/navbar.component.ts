@@ -9,6 +9,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class NavbarComponent implements OnInit {
   public href: string = '/';
+  public user: User | undefined;
   // public user = {
   //   username: 'Atul Bharadwaj',
   //   displayAvatarURL: 'https://avatars.dicebear.com/api/croodles-neutral/' + 'Atul-Bharadwaj' + '.svg'
@@ -17,9 +18,11 @@ export class NavbarComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private route: Router,
+    private afAuth: AuthService
   ) { }
 
   ngOnInit() {
+    this.user = this.afAuth.user;
     this.href = this.route.url;
   }
 

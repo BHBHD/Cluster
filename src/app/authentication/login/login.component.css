@@ -19,14 +19,14 @@
     width: 45%;
 }
 .logo{
-    
+
     border-top-left-radius:3%;
     border-bottom-left-radius:3%;
     height:80vh;
 }
 /* 210041745 210041378 */
 .login-left{
-    
+
     height: 80vh;
     width:max-content;
 }
@@ -42,7 +42,4 @@
     border: none;
     background: none;
     outline: none;
-}
-#signup{
-cursor: pointer;
 }

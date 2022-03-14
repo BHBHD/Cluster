@@ -9,7 +9,7 @@
     "test": "ng test",
     "gen-component": "ng generate component authentication/verify-email --module app",
     "gen-service": "ng generate service services/blog",
-    "gen-guard": "ng generate guard guards/user",
+    "gen-guard": "ng generate guard guards/manage-user",
     "gen-module": "ng generate module firebase-module",
     "gen-directive": "ng generate directive directive/style-paginator",
     "gen-pipe": "ng generate pipe pipes/time-since --skip-import"

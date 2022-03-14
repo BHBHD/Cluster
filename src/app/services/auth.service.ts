@@ -6,7 +6,6 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import {Router} from '@angular/router';
-import {User} from "./User";
 
 @Injectable({
   providedIn: 'root',
@@ -66,8 +65,11 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SendVerificationMail();
+        this.SendVerificationMail().then(() => {
+          window.alert('Verification email sent, please check your inbox.');
+        });
         this.SetUserData(result.user, name);
+        window.location.replace('/');
       })
       .catch((error) => {
         window.alert(error.message);

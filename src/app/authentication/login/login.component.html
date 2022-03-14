@@ -38,7 +38,7 @@
               <!--                    Remember me-->
               <!--                  </label>-->
               <!--                </div>-->
-              <span routerLink="/forgot-password">Forgot Password?</span>
+              <span routerLink="/forgot-password" class="redirect pointer">Forgot Password?</span>
             </div>
 
             <!-- Calling GoogleAuth Api from AuthService -->
@@ -57,7 +57,9 @@
 <!--            </div>-->
 
             <div class="d-flex align-items-center justify-content-center my-4">
-              <span>Don't have an account?<span id="signup" class="redirect" routerLink="/register-user"> Sign Up</span></span>
+              <span>Don't have an account?
+                <span class="redirect pointer" routerLink="/register-user"> Sign Up</span>
+              </span>
             </div>
           </div>
         </div>
