@@ -47,3 +47,7 @@ img {
 .dropdown-menu a:hover {
   background-color: dimgray;
 }
+.invert {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}

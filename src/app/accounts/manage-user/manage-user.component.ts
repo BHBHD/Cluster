@@ -41,7 +41,7 @@ export class ManageUserComponent implements OnInit {
     this.afs.collection('users').doc(user.uid).update({
       emailVerified: false
     }).then(() => {
-      window.alert('User dis-approved');
+      window.alert('User un-verified!');
       window.location.reload();
     });
   }
