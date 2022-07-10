@@ -11,14 +11,14 @@ export class BlogService {
     private http: HttpClient
   ) { }
 
-  async get_blogs(uid?: any): Promise<any> {
-    let h = {'uid': uid ? uid : ''};
-    return this.http.get(`https://api.dayzkillfeed.gg/cluster/get_blogs`, {headers: h}).toPromise();
+  get_blogs(uid?: any): Promise<any> {
+    let options = (uid) ? {headers: {uid: uid}} : {};
+    return this.http.get(`http://localhost:3000/api/cluster/get_blogs`, options).toPromise();
   }
 
   async update_blog(blog: any): Promise<any> {
     return this.http.post(
-      `https://api.dayzkillfeed.gg/cluster/update_blog`,
+      `http://localhost:3000/api/cluster/update_blog`,
       {message: 'Hmm.'},
       {headers: blog}
     ).toPromise();
@@ -26,7 +26,7 @@ export class BlogService {
 
   async create_blog(blog: any): Promise<any> {
     return this.http.put(
-      `https://api.dayzkillfeed.gg/cluster/create_blog`,
+      `http://localhost:3000/api/cluster/create_blog`,
       {message: 'Hmmm.'},
       {headers: blog}).toPromise();
   }
@@ -34,7 +34,7 @@ export class BlogService {
   async delete_blog(blog: any): Promise<any> {
     let h = {'id': (blog.id).toString()}
     return this.http.delete(
-      `https://api.dayzkillfeed.gg/cluster/delete_blog`,
+      `http://localhost:3000/api/cluster/delete_blog`,
       {headers: h}).toPromise();
   }
 }

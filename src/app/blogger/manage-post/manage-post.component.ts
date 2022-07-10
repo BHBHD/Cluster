@@ -22,8 +22,8 @@ export class ManagePostComponent implements OnInit {
     if (!this.user.uid) {
       return window.alert('You are not logged in');
     }
-    await this.blogService.get_blogs(this.user.admin? null : this.user.uid).then(e => {
-      this.blogs = e.blogs;
+    await this.blogService.get_blogs(this.user.admin ? null : this.user.uid).then((e: any[]) => {
+      this.blogs = e;
     });
   }
 

@@ -1,22 +1,13 @@
 import {Injectable, NgZone} from '@angular/core';
 import * as auth from 'firebase/auth';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import {AngularFirestore, AngularFirestoreDocument,} from '@angular/fire/compat/firestore';
 import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
-  private _user: any = null;
-
-  get user() {
-    return !this._user ? JSON.parse(localStorage.getItem('user')!) : this._user;
-  }
 
   constructor(
     public afs: AngularFirestore,
@@ -42,6 +33,13 @@ export class AuthService {
     });
   }
 
+  private _user: any = null;
+
+  get user() {
+    return !this._user ? JSON.parse(localStorage.getItem('user')!) : this._user;
+    // return {} as User;
+  }
+
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null;
@@ -51,10 +49,11 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['/']);
-        });
         this.SetUserData(result.user);
+        this.ngZone.run(() => {
+          this.router.navigate(['/']).then(() => {
+          });
+        });
       })
       .catch((error) => {
         window.alert(error.message);
@@ -65,11 +64,14 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SendVerificationMail().then(() => {
-          window.alert('Verification email sent, please check your inbox.');
-        });
+        // this.SendVerificationMail().then(() => {
+        //   window.alert('Verification email sent, please check your inbox.');
+        // });
         this.SetUserData(result.user, name);
-        window.location.replace('/');
+        this.ngZone.run(() => {
+          this.router.navigate(['/']).then(() => {
+          });
+        });
       })
       .catch((error) => {
         window.alert(error.message);
@@ -80,7 +82,7 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.router.navigate(['verify-email-address']).then(() => {});
       });
   }
 
@@ -124,9 +126,9 @@ export class AuthService {
 
     userRef.valueChanges().subscribe(data => {
       if (!data) {
-        const user_name = name? name : 'Cluster User';
+        const user_name = name ? name : 'Cluster User';
         const avatar_url = 'https://avatars.dicebear.com/api/croodles-neutral/' + (user_name)
-          .replace(/ /g,"_") + '.svg'
+          .replace(/ /g, "_") + '.svg'
 
         const userData: User = {
           uid: user.uid,
@@ -136,8 +138,7 @@ export class AuthService {
           emailVerified: user.emailVerified,
         };
         return userRef.set(userData, {merge: true});
-      }
-      else {
+      } else {
         return data;
       }
     })

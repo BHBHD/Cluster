@@ -2,12 +2,13 @@
   <!-- Card view Stars-->
   <div class="row text-white">
     <div *ngFor="let blog of blogs" class="col-md-auto py-2">
-      <div class="card text-center bg-dark">
+      <div class="card text-center bg-dark" style="width: 400px; height: auto;">
         <div class="card-header text-muted">{{ blog.author }}</div>
+        <img *ngIf="blog.image" class="card-img rounded mx-auto d-block " src="{{blog.image}}" alt="">
         <div class="card-body">
           <h5 class="card-title">{{ blog.title }}</h5>
           <p class="card-text">{{ blog.content }}</p>
-          <button class="btn btn-success" routerLink="readblog/{{blog.UID}}/{{blog.id}}" type="button">Read</button>
+          <button class="btn btn-success" routerLink="readblog/{{blog.uid}}/{{blog.id}}" type="button">Read</button>
         </div>
         <div class="card-footer">
           <small class="text-muted">{{ blog.created_at | timeSince }} ago</small>

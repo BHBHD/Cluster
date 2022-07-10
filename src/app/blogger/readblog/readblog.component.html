@@ -1,6 +1,10 @@
 <div class="container">
 <!--  <img alt="" src="\assets\img\homeimg.jpg"/>-->
   <div class="readingContent" *ngIf="blog">
+    <!-- Show blog image if available -->
+    <div class="blogImage" *ngIf="blog.image">
+      <img [src]="blog.image" alt="">
+    </div>
     <h1>{{ blog.title }}</h1>
     <p>{{ blog.content }}</p>
     <small><strong>- Author:</strong> {{ blog.author }}</small>

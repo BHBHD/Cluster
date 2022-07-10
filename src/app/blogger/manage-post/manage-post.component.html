@@ -3,7 +3,7 @@
   <p *ngIf="user.admin" class="text-muted m-3">Admins can see and manage all the posts!</p>
   <!-- post-list -->
   <div *ngFor="let blog of blogs" class="list-group m-5">
-    <a class="list-group-item list-group-item-action flex-column align-items-start " *ngIf="blog">
+    <a *ngIf="blog" class="list-group-item list-group-item-action flex-column align-items-start ">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ blog.title }}</h5>
         <small>{{ blog.created_at | timeSince }} ago</small>
@@ -11,16 +11,18 @@
       <p class="mb-1">{{ blog.content | truncate }}</p>
       <hr>
       <small><strong>Author:</strong> {{ blog.author }}</small><br>
-      <small><strong>Blog Id:</strong> {{ blog.UID }}/{{ blog.id }}</small>
+      <small><strong>Blog Id:</strong> {{ blog.uid }}/{{ blog.id }}</small>
       <div>
-        <button class="btn btn-primary m-2" routerLink="/readblog/{{blog.UID}}/{{blog.id}}" >Show</button>
-        <button class="btn btn-danger m-2" (click)="onDelete(blog)">Delete</button>
-        <button class="btn btn-primary m-2" routerLink="/create-post/{{blog.UID}}/{{blog.id}}">Edit</button>
+        <button class="btn btn-primary m-2" routerLink="/readblog/{{blog.uid}}/{{blog.id}}">Show</button>
+        <button (click)="onDelete(blog)" class="btn btn-danger m-2">Delete</button>
+        <button class="btn btn-primary m-2" routerLink="/create-post/{{blog.uid}}/{{blog.id}}">Edit</button>
       </div>
     </a>
   </div>
-  <div *ngIf="blogs.length == 0" class="list-group m-5">
-    <h2>You haven't posted any blogs yet to manage.</h2>
+  <div *ngIf="!blogs">
+    <!--    <div *ngIf="blogs.length == 0" >-->
+    <h2 class="list-group m-5">You haven't posted any blogs yet to manage.</h2>
+    <!--    </div>-->
   </div>
   <!-- post-list -->
 </div>

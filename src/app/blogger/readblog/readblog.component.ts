@@ -21,12 +21,8 @@ export class ReadblogComponent implements OnInit {
       const id = paramMap.get('id');
       const uid = paramMap.get('uid');
       await this.blogService.get_blogs(uid).then(e => {
-        for (let i = 0; i < e.blogs.length; i++) {
-          if (e.blogs[i].id == id) {
-            this.blog = e.blogs[i];
-          }
-        }
-     });
+        this.blog = e.find((b: any) => b.id == id);
+      });
     });
   }
 }

@@ -16,7 +16,7 @@
           <img class="invert" [src]="user.photoURL" alt=""> {{ user.displayName }}
         </a>
         <div aria-labelledby="dropdownMenuLink" class="dropdown-menu">
-          <a class="dropdown-item" routerLink="/accounts">Account</a>
+<!--          <a class="dropdown-item" routerLink="/accounts">Account</a>-->
           <a class="dropdown-item" routerLink="/create-post/{{user.uid}}">Create a Post</a>
           <a class="dropdown-item" routerLink="/managepost">Manage Posts</a>
           <a class="dropdown-item" routerLink="/manageuser" *ngIf="user.admin">Manage Users</a>
