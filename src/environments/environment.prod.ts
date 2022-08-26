@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  endpoint: 'http://localhost:3000/api/v1/',
+  endpoint: 'http://localhost:3000',
   firebase: {
     projectId: 'cluster-version-0',
     appId: '1:20340317994:web:8ce187af8121cd09c08853',

@@ -1,8 +1,8 @@
 declare interface User {
   uid: string;
-  admin?: boolean;
   email: string;
-  displayName: string;
-  photoURL: string;
-  emailVerified: boolean;
+  name: string;
+  image?: string;
+  is_admin: boolean;
+  has_verified_email: boolean;
 }

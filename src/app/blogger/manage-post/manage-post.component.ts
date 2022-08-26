@@ -8,7 +8,6 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./manage-post.component.css']
 })
 export class ManagePostComponent implements OnInit {
-  public blogs: any;
   public user: any;
 
   constructor(
@@ -18,28 +17,32 @@ export class ManagePostComponent implements OnInit {
     this.user = this.afAuth.user;
   }
 
+  get blogs() {
+    if (this.user.is_admin) return this.blogService.blogs;
+    else return this.blogService.get_blogs_by_uid(this.user.uid);
+  }
+
   async ngOnInit() {
-    if (!this.user.uid) {
-      return window.alert('You are not logged in');
-    }
-    await this.blogService.get_blogs(this.user.admin ? null : this.user.uid).then((e: any[]) => {
-      this.blogs = e;
-    });
+    await this.blogService.init();
   }
 
   onDelete(blog: any) {
-    if (this.afAuth.user.uid != blog.UID && !this.afAuth.user.admin) {
+    if (this.user.uid != blog.uid && !this.user.is_admin) {
       window.alert('You are not authorized to update this post');
       return window.location.replace('/');
     }
 
     if (blog) {
       if (window.confirm('Are you sure you want to delete this post?')) {
-        this.blogService.delete_blog(blog).then(() => {
-          window.alert('Blog deleted!');
-          window.location.reload();
-        }).catch(e => {
-          window.alert(e);
+        this.blogService.delete_blog(blog).subscribe({
+          next: (result) => {
+            window.alert('Post has been deleted');
+            window.location.reload();
+          },
+          error: (err) => {
+            window.alert("There's been an error while deleting the post");
+            window.location.reload();
+          }
         });
       }
     }

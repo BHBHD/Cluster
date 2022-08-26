@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {BlogService} from "../services/blog.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { BlogService } from "../services/blog.service";
 
 @Component({
   selector: 'app-home',
@@ -8,18 +9,16 @@ import {BlogService} from "../services/blog.service";
 })
 export class HomeComponent implements OnInit {
 
-  public blogs: any[] = [];
-
   constructor(
-    private blogService: BlogService,
+    private blogService: BlogService
   ) {
   }
 
-  async ngOnInit() {
-    await this.blogService.get_blogs().then((e: any[]) => {
-      e.forEach(e => {
-        this.blogs.push(e);
-      })
-    });
+  get blogs() {
+    return this.blogService.blogs;
+  }
+
+  ngOnInit() {
+    this.blogService.init();    
   }
 }

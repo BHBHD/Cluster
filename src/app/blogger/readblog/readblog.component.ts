@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {BlogService} from "../../services/blog.service";
 
 @Component({
@@ -9,20 +9,31 @@ import {BlogService} from "../../services/blog.service";
 })
 export class ReadblogComponent implements OnInit {
 
-  public blog: any;
+  public blog: Blog | undefined;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private blogService: BlogService,
   ) { }
 
   async ngOnInit() {
-    this.route.paramMap.subscribe(async(paramMap) => {
+    this.route.paramMap.subscribe(async (paramMap) => {
       const id = paramMap.get('id');
       const uid = paramMap.get('uid');
-      await this.blogService.get_blogs(uid).then(e => {
-        this.blog = e.find((b: any) => b.id == id);
-      });
+
+      if (!id || !uid) {
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
+      };
+      
+      this.blog = this.blogService.get_blog(id, uid);
+      if (!this.blog) {
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
+      }
     });
   }
 }

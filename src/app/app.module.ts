@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbAlertModule, NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -52,10 +51,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     FirebaseModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbPaginationModule,
-    NgbAlertModule,
     ReactiveFormsModule,
-    NgbDropdownModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
