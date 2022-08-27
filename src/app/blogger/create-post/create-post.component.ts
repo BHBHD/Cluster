@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { BlogService } from "../../services/blog.service";
-import { FormGroup, FormControl } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {BlogService} from "../../services/blog.service";
+import {FormControl, FormGroup} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-admin',
@@ -31,33 +31,25 @@ export class CreatePostComponent implements OnInit {
     private route: ActivatedRoute,
     private blogService: BlogService,
     private afAuth: AuthService
-  ) { 
+  ) {
+    this.blogService.init()
     this.user = this.afAuth.user;
   }
 
-  async ngOnInit() {
-    await this.blogService.init();
-    
+  ngOnInit() {
     this.route.paramMap.subscribe(async (paramMap) => {
       const id = paramMap.get('id');
       const uid = paramMap.get('uid');
 
-      // if (!id || !uid) {
-      //   this.router.navigate(['/']).then(() => {
-      //     window.location.reload();
-      //   });
-      // };
-      
       if (id && uid) {
         this.blog = this.blogService.get_blog(id, uid);
-        console.log(this.blog);
         if (this.blog) {
           this.updateForm.setValue({
             title: this.blog.title,
             content: this.blog.content,
             image: this.blog.image ? this.blog.image : '',
           });
-        }      
+        }
       }
     });
   }
@@ -70,36 +62,46 @@ export class CreatePostComponent implements OnInit {
       return window.location.replace('/');
     }
 
-    let blog = {
-      bid: (this.blog.id).toString(),
+    const updatedBlog: UpdateBlog = {
+      id: (this.blog.id).toString(),
       title: this.updateForm.value.title,
       content: this.updateForm.value.content,
       image: this.updateForm.value.image,
     };
-    this.blogService.update_blog(blog).then(() => {
-      window.alert('Blog updated!');
-      window.location.replace('/');
-    }).catch(e => {
-      console.log(e);
-    });
+
+    this.blogService.update_blog(updatedBlog).subscribe({
+      next: () => {
+        window.alert('Post has been updated');
+        window.location.reload();
+      },
+      error: () => {
+        window.alert("There's been an error while deleting the post");
+        window.location.reload();
+      }
+    })
   }
 
   onCreate() {
-    const blog = {
+    const blog: CreateBlog = {
       title: this.createForm.value.title,
       content: this.createForm.value.content,
       image: this.createForm.value.image,
       author: this.afAuth.user.displayName,
       uid: this.afAuth.user.uid,
     };
-    if (!this.afAuth.user.emailVerified) {
-      window.alert("You're not verified yet. Hence, you can't create a post.");
-      return;
-    }
-    this.blogService.create_blog(blog).then(() => {
-      window.alert('Blog posted!');
-      window.location.replace('/');
-    });
+    // if (!this.user.has_verified_email) {
+    //   return window.alert('You need to verify your email before you can create a post');
+    // }
+    this.blogService.create_blog(blog).subscribe({
+      next: () => {
+        window.alert('Post has been created');
+        window.location.reload();
+      },
+      error: () => {
+        window.alert("There's been an error while creating the post");
+        window.location.reload();
+      }
+    })
   }
 
 }

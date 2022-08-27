@@ -1,10 +1,9 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { environment } from 'src/environments/environment';
-import { signOut } from 'firebase/auth';
+import {Injectable, NgZone} from '@angular/core';
+import {Auth, signInWithEmailAndPassword} from '@angular/fire/auth';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {environment} from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,7 +11,6 @@ import { signOut } from 'firebase/auth';
 })
 export class AuthService {
   url = environment.endpoint + '/user'
-  private _user: User | null;
 
   constructor(
     private auth: Auth,
@@ -22,14 +20,13 @@ export class AuthService {
   ) {
 
     this.auth.onAuthStateChanged((user) => {
-      if (!user) {
-        localStorage.removeItem('user');
-      } else {
+      if (user) {
         if (!this._user) this._user = this.user;
       }
     });
   }
 
+  private _user: User | null;
 
   get user() {
     return !this._user ? JSON.parse(localStorage.getItem('user')!) : this._user;
@@ -79,7 +76,7 @@ export class AuthService {
       error: (err: HttpErrorResponse) => {
         if (err.status === 404 || err.status === 400) {
           let userName = name || user.displayName || 'Cluster User'
-          const avatar_url = 'https://avatars.dicebear.com/api/croodles-neutral/' + (userName) .replace(/ /g, "_") + '.svg'
+          const avatar_url = 'https://avatars.dicebear.com/api/croodles-neutral/' + (userName).replace(/ /g, "_") + '.svg'
 
           let newUser: User = {
             uid: user.uid,
@@ -90,10 +87,10 @@ export class AuthService {
             has_verified_email: user.emailVerified,
           }
           this.createUser(newUser).subscribe({
-            next: (resp) => {
+            next: () => {
               localStorage.setItem('user', JSON.stringify(newUser));
             },
-            error: (err: HttpErrorResponse) => {
+            error: () => {
               localStorage.removeItem('user');
             }
           });
@@ -103,7 +100,7 @@ export class AuthService {
   }
 
   getUser(uid: string): Observable<User> {
-    return this.http.get<User>(this.url, { params: { uid: uid } });
+    return this.http.get<User>(this.url, {params: {uid: uid}});
   }
 
   createUser(user: User): Observable<any> {

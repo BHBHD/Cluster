@@ -1,7 +1,10 @@
 <div class="container">
   <h1 class="m-3">Manage Posts</h1>
-  <p *ngIf="user.admin" class="text-muted m-3">Admins can see and manage all the posts!</p>
+  <p *ngIf="user.is_admin" class="text-muted m-3">Admins can see and manage all the posts!</p>
   <!-- post-list -->
+  <div *ngIf="blogs.length == 0">
+    <h2 class="list-group m-5">You haven't posted any blogs yet to manage.</h2>
+  </div>
   <div *ngFor="let blog of blogs" class="list-group m-5">
     <a *ngIf="blog" class="list-group-item list-group-item-action flex-column align-items-start ">
       <div class="d-flex w-100 justify-content-between">
@@ -18,11 +21,6 @@
         <button class="btn btn-primary m-2" routerLink="/create-post/{{blog.uid}}/{{blog.id}}">Edit</button>
       </div>
     </a>
-  </div>
-  <div *ngIf="!blogs">
-    <!--    <div *ngIf="blogs.length == 0" >-->
-    <h2 class="list-group m-5">You haven't posted any blogs yet to manage.</h2>
-    <!--    </div>-->
   </div>
   <!-- post-list -->
 </div>

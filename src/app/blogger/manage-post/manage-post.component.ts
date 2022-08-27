@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BlogService} from "../../services/blog.service";
 import {AuthService} from "../../services/auth.service";
 
@@ -8,7 +8,7 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./manage-post.component.css']
 })
 export class ManagePostComponent implements OnInit {
-  public user: any;
+  public user: User;
 
   constructor(
     private blogService: BlogService,
@@ -22,8 +22,8 @@ export class ManagePostComponent implements OnInit {
     else return this.blogService.get_blogs_by_uid(this.user.uid);
   }
 
-  async ngOnInit() {
-    await this.blogService.init();
+  ngOnInit() {
+    this.blogService.init();
   }
 
   onDelete(blog: any) {
@@ -35,11 +35,11 @@ export class ManagePostComponent implements OnInit {
     if (blog) {
       if (window.confirm('Are you sure you want to delete this post?')) {
         this.blogService.delete_blog(blog).subscribe({
-          next: (result) => {
+          next: () => {
             window.alert('Post has been deleted');
             window.location.reload();
           },
-          error: (err) => {
+          error: () => {
             window.alert("There's been an error while deleting the post");
             window.location.reload();
           }
