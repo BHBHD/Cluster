@@ -3,6 +3,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BlogService} from "../../services/blog.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {FileUploader} from "ng2-file-upload";
+import {environment} from "../../../environments/environment";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-admin',
@@ -10,6 +13,11 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./create-post.component.css'],
 })
 export class CreatePostComponent implements OnInit {
+
+  public uploader: FileUploader = new FileUploader({
+    url: `${environment.endpoint}/blogs/upload`,
+    itemAlias: 'image'
+  });
 
   createForm = new FormGroup({
     title: new FormControl(''),
@@ -30,7 +38,8 @@ export class CreatePostComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private blogService: BlogService,
-    private afAuth: AuthService
+    private afAuth: AuthService,
+    private toastr: ToastrService
   ) {
     this.blogService.init()
     this.user = this.afAuth.user;
@@ -52,6 +61,10 @@ export class CreatePostComponent implements OnInit {
         }
       }
     });
+
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
   }
 
   onUpdate() {
@@ -82,10 +95,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   onCreate() {
+    this.uploader.uploadAll();
+    // this.uploader.onCompleteItem = (item: any, status: any) => { };
     const blog: CreateBlog = {
       title: this.createForm.value.title,
       content: this.createForm.value.content,
-      image: this.createForm.value.image,
+      image: (this.uploader.queue.length > 0) ? this.uploader.queue[0].file.name : this.createForm.value.image,
       author: this.afAuth.user.displayName,
       uid: this.afAuth.user.uid,
     };
@@ -94,14 +109,15 @@ export class CreatePostComponent implements OnInit {
     // }
     this.blogService.create_blog(blog).subscribe({
       next: () => {
-        window.alert('Post has been created');
+        this.toastr.success('Post has been created!');
         window.location.reload();
       },
       error: () => {
-        window.alert("There's been an error while creating the post");
+        this.toastr.error("There's been an error while creating the post");
         window.location.reload();
       }
-    })
+    });
+
   }
 
 }

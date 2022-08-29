@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  endpoint: 'http://18.206.118.16',
+  endpoint: 'http://127.0.0.1:8000',
   firebase: {
     projectId: 'cluster-version-0',
     appId: '1:20340317994:web:8ce187af8121cd09c08853',

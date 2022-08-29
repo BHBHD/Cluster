@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.init();
     this.user = this.authService.user;
     this.href = this.route.url;
   }

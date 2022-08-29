@@ -1,5 +1,11 @@
 import {Injectable, NgZone} from '@angular/core';
-import {Auth, signInWithEmailAndPassword} from '@angular/fire/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword
+} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
@@ -18,7 +24,6 @@ export class AuthService {
     private ngZone: NgZone,
     private http: HttpClient
   ) {
-
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         if (!this._user) this._user = this.user;
@@ -37,13 +42,23 @@ export class AuthService {
     return user !== null;
   }
 
+  init() {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        if (!this._user) this._user = this.user;
+        // else { localStorage.removeItem('user'); this._user = null; }
+      }
+    });
+  }
+
   SignIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((result) => {
-        this.SetUserData(result.user);
-        this.ngZone.run(() => {
-          this.router.navigate(['/']).then(() => {
-            window.location.reload();
+        this.SetUserData(result.user).then(() => {
+          this.ngZone.run(() => {
+            this.router.navigate(['/']).then(() => {
+              window.location.reload();
+            });
           });
         });
       })
@@ -53,21 +68,38 @@ export class AuthService {
   }
 
   SignUp(email: string, password: string, name?: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .then((result) => {
+        this.SendVerificationMail();
+        this.SetUserData(result.user, name);
+        this.ngZone.run(() => {
+          this.router.navigate(['/']).then(() => {
+          });
+        });
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
   }
 
   SendVerificationMail() {
+    if (!this.auth.currentUser) return alert('No user is signed in');
+    return sendEmailVerification(this.auth.currentUser).then(() => {
+      window.alert('Verification email sent!');
+    });
   }
 
   ForgotPassword(passwordResetEmail: string) {
+    return sendPasswordResetEmail(this.auth, passwordResetEmail)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
   }
 
-  GoogleAuth() {
-  }
-
-  AuthLogin(provider: any) {
-  }
-
-  SetUserData(user: any, name?: string) {
+  async SetUserData(user: any, name?: string) {
     let dbUser = this.getUser(user.uid);
     dbUser.subscribe({
       next: (resp) => {

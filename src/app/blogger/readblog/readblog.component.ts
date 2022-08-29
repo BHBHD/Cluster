@@ -26,8 +26,8 @@ export class ReadblogComponent implements OnInit {
         this.router.navigate(['/']).then(() => {
           window.location.reload();
         });
-      };
-      
+      }
+
       this.blog = this.blogService.get_blog(id, uid);
       if (!this.blog) {
         this.router.navigate(['/']).then(() => {

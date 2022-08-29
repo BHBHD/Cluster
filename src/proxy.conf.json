@@ -1,7 +1,6 @@
 {
   "/*": {
-    "target": "http://18.206.118.16",
-    "secure": false,
-    "logLevel": "debug"
+    "target": "https://cluster.dayzkillfeed.gg",
+    "secure": false
   }
 }
