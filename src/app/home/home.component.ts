@@ -11,7 +11,7 @@ export class HomeComponent {
   constructor(
     private blogService: BlogService
   ) {
-    this.blogService.init();
+    // this.blogService.init();
   }
 
   get blogs() {

@@ -43,7 +43,7 @@ export class CreatePostComponent implements OnInit {
     private afAuth: AuthService,
     private toastr: ToastrService
   ) {
-    this.blogService.init()
+    // this.blogService.init()
     this.user = this.afAuth.user;
   }
 

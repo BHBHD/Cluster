@@ -34,7 +34,7 @@ export class AuthService {
   private _user: User | null;
 
   get user() {
-    return !this._user ? JSON.parse(localStorage.getItem('user')!) : this._user;
+    return !this._user ?  JSON.parse(localStorage.getItem('user')!) : this._user;
   }
 
   get isLoggedIn(): boolean {
@@ -71,9 +71,11 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((result) => {
         this.SendVerificationMail();
-        this.SetUserData(result.user, name);
-        this.ngZone.run(() => {
-          this.router.navigate(['/']).then(() => {
+        this.SetUserData(result.user, name).then(() => {
+          this.ngZone.run(() => {
+            this.router.navigate(['/']).then(() => {
+              window.location.reload();
+            });
           });
         });
       })

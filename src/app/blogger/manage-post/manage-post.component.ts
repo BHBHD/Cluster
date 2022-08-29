@@ -25,7 +25,7 @@ export class ManagePostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.blogService.init();
+    // this.blogService.init();
   }
 
   onDelete(blog: any) {
