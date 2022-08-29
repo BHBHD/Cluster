@@ -45,6 +45,7 @@ export class AuthService {
   init() {
     this.auth.onAuthStateChanged((user) => {
       if (user) {
+        if (!this.isLoggedIn) this.SetUserData(user);
         if (!this._user) this._user = this.user;
         // else { localStorage.removeItem('user'); this._user = null; }
       }
@@ -54,7 +55,8 @@ export class AuthService {
   SignIn(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((result) => {
-        this.SetUserData(result.user).then(() => {
+        this.SetUserData(result.user)
+          .then(() => {
           this.ngZone.run(() => {
             this.router.navigate(['/']).then(() => {
               window.location.reload();
@@ -71,7 +73,8 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((result) => {
         this.SendVerificationMail();
-        this.SetUserData(result.user, name).then(() => {
+        this.SetUserData(result.user, name)
+          .then(() => {
           this.ngZone.run(() => {
             this.router.navigate(['/']).then(() => {
               window.location.reload();
