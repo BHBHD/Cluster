@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BlogService} from "../../services/blog.service";
 import {AuthService} from "../../services/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-manage-post',
@@ -12,7 +13,8 @@ export class ManagePostComponent implements OnInit {
 
   constructor(
     private blogService: BlogService,
-    private afAuth: AuthService
+    private afAuth: AuthService,
+    private toastr: ToastrService
   ) {
     this.user = this.afAuth.user;
   }
@@ -28,7 +30,7 @@ export class ManagePostComponent implements OnInit {
 
   onDelete(blog: any) {
     if (this.user.uid != blog.uid && !this.user.is_admin) {
-      window.alert('You are not authorized to update this post');
+      this.toastr.error('You are not authorized to update this post');
       return window.location.replace('/');
     }
 
@@ -36,11 +38,11 @@ export class ManagePostComponent implements OnInit {
       if (window.confirm('Are you sure you want to delete this post?')) {
         this.blogService.delete_blog(blog).subscribe({
           next: () => {
-            window.alert('Post has been deleted');
+            this.toastr.info('Post has been deleted');
             window.location.reload();
           },
           error: () => {
-            window.alert("There's been an error while deleting the post");
+            this.toastr.error('Error deleting post');
             window.location.reload();
           }
         });

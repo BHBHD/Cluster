@@ -76,12 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cluster:build:production",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "cluster:build:production"
             },
             "development": {
-              "browserTarget": "cluster:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "cluster:build:development"
             }
           },
           "defaultConfiguration": "development"

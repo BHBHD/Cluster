@@ -28,6 +28,7 @@ import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ImgNamePipe} from "./pipes/img-name.pipe";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     VerifyEmailComponent,
 
     TruncatePipe,
-    TimeSincePipe
+    TimeSincePipe,
+    ImgNamePipe
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),

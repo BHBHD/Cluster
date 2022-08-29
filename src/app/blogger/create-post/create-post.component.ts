@@ -31,6 +31,8 @@ export class CreatePostComponent implements OnInit {
     content: new FormControl(''),
   });
 
+  public imgSrc: string = '';
+
   public blog: Blog | undefined;
   public user: any;
 
@@ -53,10 +55,11 @@ export class CreatePostComponent implements OnInit {
       if (id && uid) {
         this.blog = this.blogService.get_blog(id, uid);
         if (this.blog) {
+          this.imgSrc = this.blog.image ? this.blog.image : '';
           this.updateForm.setValue({
             title: this.blog.title,
             content: this.blog.content,
-            image: this.blog.image ? this.blog.image : '',
+            image: null
           });
         }
       }
@@ -70,33 +73,49 @@ export class CreatePostComponent implements OnInit {
   onUpdate() {
     if (!this.blog) return window.location.replace('/');
 
-    if (this.user.uid != this.blog.uid) {
+    if ((this.user.uid != this.blog.uid) && !this.user.is_admin) {
       window.alert('You are not authorized to update this post');
       return window.location.replace('/');
     }
 
+    this.uploader.uploadAll();
     const updatedBlog: UpdateBlog = {
       id: (this.blog.id).toString(),
       title: this.updateForm.value.title,
       content: this.updateForm.value.content,
-      image: this.updateForm.value.image,
+      image: (this.uploader.queue.length > 0) ? this.uploader.queue[0].file.name : this.createForm.value.image,
     };
 
-    this.blogService.update_blog(updatedBlog).subscribe({
-      next: () => {
-        window.alert('Post has been updated');
-        window.location.reload();
-      },
-      error: () => {
-        window.alert("There's been an error while deleting the post");
-        window.location.reload();
+    if (this.uploader.queue.length > 0) {
+      this.uploader.onCompleteItem = (item: any, status: any) => {
+        this.blogService.update_blog(updatedBlog).subscribe({
+          next: () => {
+            this.toastr.success('Post has been updated with image!')
+            window.location.reload();
+          },
+          error: () => {
+            this.toastr.error("There's been an error while updating the post");
+            window.location.reload();
+          }
+        });
       }
-    })
+
+    } else {
+      this.blogService.update_blog(updatedBlog).subscribe({
+        next: () => {
+          this.toastr.success('Post has been updated!')
+          window.location.reload();
+        },
+        error: () => {
+          this.toastr.error("There's been an error while updating the post");
+          window.location.reload();
+        }
+      });
+    }
   }
 
   onCreate() {
     this.uploader.uploadAll();
-    // this.uploader.onCompleteItem = (item: any, status: any) => { };
     const blog: CreateBlog = {
       title: this.createForm.value.title,
       content: this.createForm.value.content,
@@ -104,19 +123,36 @@ export class CreatePostComponent implements OnInit {
       author: this.afAuth.user.displayName,
       uid: this.afAuth.user.uid,
     };
+
+    if (this.uploader.queue.length > 0) {
+      this.uploader.onCompleteItem = (item: any, status: any) => {
+        this.blogService.create_blog(blog).subscribe({
+          next: () => {
+            this.toastr.success('Post has been created with image!');
+            window.location.reload();
+          },
+          error: () => {
+            this.toastr.error("There's been an error while creating the post");
+            window.location.reload();
+          }
+        });
+      };
+    } else {
+      this.blogService.create_blog(blog).subscribe({
+        next: () => {
+          this.toastr.success('Post has been created!');
+          window.location.reload();
+        },
+        error: () => {
+          this.toastr.error("There's been an error while creating the post");
+          window.location.reload();
+        }
+      });
+    }
+
     // if (!this.user.has_verified_email) {
     //   return window.alert('You need to verify your email before you can create a post');
     // }
-    this.blogService.create_blog(blog).subscribe({
-      next: () => {
-        this.toastr.success('Post has been created!');
-        window.location.reload();
-      },
-      error: () => {
-        this.toastr.error("There's been an error while creating the post");
-        window.location.reload();
-      }
-    });
 
   }
 

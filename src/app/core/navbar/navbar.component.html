@@ -19,7 +19,7 @@
 <!--          <a class="dropdown-item" routerLink="/accounts">Account</a>-->
           <a class="dropdown-item" routerLink="/create-post/{{user.uid}}">Create a Post</a>
           <a class="dropdown-item" routerLink="/managepost">Manage Posts</a>
-          <a class="dropdown-item" routerLink="/manageuser" *ngIf="user.is_admin">Manage Users</a>
+<!--          <a class="dropdown-item" routerLink="/manageuser" *ngIf="user.is_admin">Manage Users</a>-->
           <hr class="m-1">
           <a class="dropdown-item" (click)="authService.SignOut()">
             <i class="fas fa-sign-out-alt"></i>

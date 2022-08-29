@@ -12,7 +12,7 @@
     "gen-guard": "ng generate guard guards/manage-user",
     "gen-module": "ng generate module firebase-module",
     "gen-directive": "ng generate directive directive/style-paginator",
-    "gen-pipe": "ng generate pipe pipes/time-since --skip-import"
+    "gen-pipe": "ng generate pipe pipes/img-name --skip-import"
   },
   "private": true,
   "dependencies": {

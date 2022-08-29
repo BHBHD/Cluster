@@ -6,7 +6,8 @@
       <input class="form-control mb-2 py-4" formControlName="title" placeholder="Post heading" type="text"/>
       <!--      <input class="form-control mb-2 py-4" placeholder="Post subheading" type="text" value="{{blog.sub}}"/>-->
 
-      <div class="d-flex align-items-baseline py-3">
+      <div class="d-flex flex-column py-1">
+        <label class="my-2" *ngIf="imgSrc"><strong>Old Image Name:</strong> {{ imgSrc|imgName }}</label>
         <input [uploader]="uploader" accept="image/x-png,image/gif,image/jpeg" class="form-control mb-2"
                formControlName="image" ng2FileSelect type="file"/>
         <!--        <button (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"-->
