@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  endpoint: 'https://cluster.dayzkillfeed.gg',
+  endpoint: 'https://young-sierra-66174.herokuapp.com',
   firebase: {
     projectId: 'cluster-version-0',
     appId: '1:20340317994:web:8ce187af8121cd09c08853',
